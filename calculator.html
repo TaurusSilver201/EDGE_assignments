@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced Calculator</title>
+  <style>
+    .calculator {
+      width: 450px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .display {
+      width: 100%;
+      height: 80px;
+      font-size: 48px;
+      margin-bottom: 10px;
+      text-align: right;
+      padding: 10px;
+      box-sizing: border-box;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .button {
+      width: 90px;
+      height: 70px;
+      font-size: 24px;
+      margin: 5px;
+      padding: 10px;
+      background-color: #e6e6e6;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #d9d9d9;
+    }
+
+    .button.operator {
+      background-color: #b3b3b3;
+    }
+
+    .button.operator:hover {
+      background-color: #a6a6a6;
+    }
+
+    .button.equal {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .button.equal:hover {
+      background-color: #3e8e41;
+    }
+
+    .button.function {
+      background-color: #f2f2f2;
+    }
+
+    .button.function:hover {
+      background-color: #e6e6e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" readonly>
+    <div>
+      <button class="button function" onclick="clearAll()">AC</button>
+      <button class="button function" onclick="backspace()">&#8592;</button>
+      <button class="button function" onclick="toggleSign()">+/-</button>
+      <button class="button operator" onclick="appendToDisplay('/')">÷</button>
+    </div>
+    <div>
+      <button class="button" onclick="appendToDisplay('7')">7</button>
+      <button class="button" onclick="appendToDisplay('8')">8</button>
+      <button class="button" onclick="appendToDisplay('9')">9</button>
+      <button class="button operator" onclick="appendToDisplay('*')">×</button>
+    </div>
+    <div>
+      <button class="button" onclick="appendToDisplay('4')">4</button>
+      <button class="button" onclick="appendToDisplay('5')">5</button>
+      <button class="button" onclick="appendToDisplay('6')">6</button>
+      <button class="button operator" onclick="appendToDisplay('-')">-</button>
+    </div>
+    <div>
+      <button class="button" onclick="appendToDisplay('1')">1</button>
+      <button class="button" onclick="appendToDisplay('2')">2</button>
+      <button class="button" onclick="appendToDisplay('3')">3</button>
+      <button class="button operator" onclick="appendToDisplay('+')">+</button>
+    </div>
+    <div>
+      <button class="button" onclick="appendToDisplay('0')">0</button>
+      <button class="button" onclick="appendToDisplay('.')">.</button>
+      <button class="button equal" onclick="calculate()">=</button>
+      <button class="button operator" onclick="appendToDisplay('%')">%</button>
+    </div>
+  </div>
+
+  <script>
+    let displayValue = '';
+
+    function appendToDisplay(value) {
+      displayValue += value;
+      document.getElementById('display').value = displayValue;
+    }
+
+    function clearAll() {
+      displayValue = '';
+      document.getElementById('display').value = displayValue;
+    }
+
+    function backspace() {
+      displayValue = displayValue.slice(0, -1);
+      document.getElementById('display').value = displayValue;
+    }
+
+    function toggleSign() {
+      if (displayValue !== '') {
+        if (displayValue.startsWith('-')) {
+          displayValue = displayValue.slice(1);
+        } else {
+          displayValue = '-' + displayValue;
+        }
+        document.getElementById('display').value = displayValue;
+      }
+    }
+
+    function calculate() {
+      try {
+        let result = eval(displayValue);
+        document.getElementById('display').value = result.toFixed(2);
+        displayValue = document.getElementById('display').value;
+      } catch (error) {
+        alert('Invalid expression');
+      }
+    }
+  </script>
+</body>
+</html>
