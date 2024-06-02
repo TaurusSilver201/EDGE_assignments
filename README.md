@@ -1,1 +1,1 @@
-Edge Assignments .
+Edge Assignments.
